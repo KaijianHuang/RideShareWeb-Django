@@ -1,0 +1,34 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <p><strong>Ride Share Web</strong></p>
+        <p>This ride share system is mainly designed for users to
+            request, drive for, and join rides</p>
+        <p>Ride Owner – When a user requests a ride, he/she becomes the owner of that ride. Requesng
+            a ride should involve specifying a desnaon address, a required arrival (date & me), the
+            number of total passengers from the owner’s party, and oponally, a vehicle type and any other
+            special requests1
+            . A request will also indicate whether this ride can be shared or not – a shared
+            ride can be joined by other users (ride sharers). A ride owner would be able to modify a ride
+            request up unl it is confirmed (a ride becomes confirmed once a driver accepts the ride and is
+            in route). A ride is open from the me it is requested unl that point. A ride owner can also
+            view ride status unl the ride is complete (a ride becomes closed once a driver finishes the ride
+            and marks it as complete).</p>
+            <p>Ride Driver – A user can register as a driver, and in doing so will provide their name along with
+            their vehicle informaon. The vehicle informaon includes the type, license plate number,
+            maximum number of passengers, and oponally any other special vehicle info
+            1
+            . To simplify, a
+            driver can only have 1 vehicle. A driver can search for open ride requests based on the ride
+            request aributes. A driver can claim and start a ride service, thus confirming it. A driver can
+            also complete rides that they service aer reaching the desnaon to indicate that the ride is
+            finished.</p>
+            <p>Ride Sharer – A user can search for open ride requests by specifying a desnaon, arrival
+            window (the user’s earliest and latest acceptable arrival date & me) and number of passengers
+            in their party. The user can then become a ride sharer, by joining that ride. A ride sharer can
+            also view the ride status, similarly to a ride owner. Finally, a ride sharer can edit their ride status
+            as long as the ride is open.</p>
+            <button class="btn btn-outline-info" onclick="history.back()">Go Back</button>
+    </div>
+{% endblock content%}

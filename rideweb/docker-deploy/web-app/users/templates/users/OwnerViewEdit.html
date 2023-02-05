@@ -1,0 +1,78 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content%}
+<div class="media-body">
+<body>
+{% if ride %}
+   
+    <article class="media content-section">
+            <div class="media-body">
+            
+                <p>Destination: <strong>{{ ride.destination }}</strong> </p>
+                <p>Arrival time: {{ ride.arrival_time }}</p>
+                <p>Sharers : {% if sharers_list %}{% for sharer in sharers_list %} {{ sharer }} {% endfor %}{% else %} no sharers {% endif %}</p>
+                <p>Vehicle Type: {{ride.Vtype}}</p>
+                <p>Remaining seats: {{ ride.RemainSeats }}</p>
+                {% if ride.sharable %}
+                    <p>Sharable : YES</p>
+                {% else %}
+                    <p>Sharable : NO</p>
+                {% endif %}
+                <p>Status : {{ ride.status }}</p>
+                <p>Special Request: {{ride.Special}}</p>
+            </div>
+       
+        <br/>
+    </article>
+    {% if not sharers %}
+        <form action="/edit_ride/" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <article class="media content-section">
+                <div class="media-body">
+                    <p>Destination:<input type="text" name="destination" required="required"></p>
+                    <p>Arrival Time:<input type="datetime-local" name="arrival_time" required="required"></p>
+                    <p>Party Size:<input type="number" name="party_size" min="1" max="6" required="required"></p>
+                    <p>vehicle:<select type="text" name="vehicle">
+                            <option  value = "Sedan">Sedan</option>
+                            <option  value = "SUV">SUV</option>
+                        </select></p>
+                    <p>Sharable:<select type="boolean" name="sharable">
+                            <option value = True>Yes</option>
+                            <option value = False>No</option>
+                        </select></p>
+                    <p>Special Request:<input type="text" name="special_request"></p>
+                    <input type="hidden" name="edit_id" value={{ride.pk}}>
+                    <button class="btn btn-outline-info" type="submit"> Save Changes </button>
+                </div>
+            
+        </form>
+  
+    {% else %}
+    
+        <p> Your ride already have sharers, so you cannot edit it anymore!</p>
+    {% endif %}
+
+
+{% else %}
+    <p>No such ride.</p>
+{% endif %}
+</body>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div class="col-md-4">
+    <div class="content-section">
+    <h3>Menu</h3>
+    <p class='text-muted'>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-light"><a href="{% url 'profile' %}">Personal info</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'CreateRide' %}">Create a ride request</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'search_ride' %}">Search for a ride share</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'OwnerRides' %}">View my rides</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'ConfirmedUser' %}">View confirmed rides</a></li>
+        </ul>
+    </p>
+    </div>
+</div>
+{% endblock %}

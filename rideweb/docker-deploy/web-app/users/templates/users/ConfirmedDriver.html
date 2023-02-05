@@ -1,0 +1,68 @@
+{% extends "users/base.html" %}
+{% block content%}
+
+
+
+<div class="media-body">
+    <br><a href = '{%url "driver_search_ride"%}'>Go Back</a>
+<h1>Confirmed rides</h1>
+<body>
+{% if not confirmed_rides %}
+    <p>You haven't confirmed any ride!</p>
+    <a href="{% url 'driver_search_ride' %}">Go Claim one!</a>
+{% else %}
+    {% for ride in confirmed_rides %}
+        <article class="media content-section">
+            <div class="media-body">
+            <div class="article-metadata">
+                <p class="mr-2"><strong>Ride No.{{ride.id}}</strong> Ride owner: <strong>{{ ride.owner }}</strong></p>
+            </div>
+                <p>Destination: <strong>{{ ride.destination }}</strong> </p>
+                <p>Arrival time: {{ ride.arrival_time }}</p>
+                <p>Remaining seats {{ ride.remaining_seats }}</p>
+                <p>Vehicle: {{ ride.vehicle }} </p>
+                <p>Status : {{ ride.status }}</p>
+                <a href="/complete_ride/{{ride.id}}">Complete</a>
+            </div>
+        </article>
+    {% endfor %}
+{% endif %}
+</body>
+</div>
+
+<div class="media-body">
+    <br></br>
+<h1>Completed rides</h1>
+<body>
+{% if not completed_rides %}
+    <p>You haven't completed any ride!</p>
+{% else %}
+    {% for ride in completed_rides %}
+    <article class="media content-section">
+        <div class="media-body">
+        <div class="article-metadata">
+            <p class="mr-2"><strong>Ride No.{{ride.id}}</strong> Ride owner: <strong>{{ ride.owner }}</strong></p>
+        </div>
+            <p>Destination: <strong>{{ ride.destination }}</strong> </p>
+            <p>Arrival time: {{ ride.arrival_time }}</p>
+        </div>
+    </article>
+    {% endfor %}
+{% endif %}
+</body>
+{% endblock %}
+{% block sidebar %}
+<div class="col-md-4">
+    <div class="content-section">
+    <h3>Menu</h3>
+    <p class='text-muted'>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-light"><a href="{% url 'driver' %}">Driver personal info</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'driver_search_ride' %}">Look for open rides</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'ConfirmedDriver' %}">Confirmed and Completed Rides</a></li>
+        </ul>
+    </p>
+    </div>
+</div>
+
+{% endblock %}

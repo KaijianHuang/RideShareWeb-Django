@@ -1,0 +1,30 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-outline-info" type="submit"> Confrim Changes </button>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a class="ml-2" href="{% url 'driver' %}">Back</a>
+            </small>
+        </div>
+    </div>
+{% endblock content%}
+{% block sidebar %}
+<div class="col-md-4">
+    <div class="content-section">
+    <h3>Menu</h3>
+    <p class='text-muted'>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-light"><a href="{% url 'driver' %}">Driver personal info</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'driver_search_ride' %}">Look for open rides</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'ConfirmedDriver' %}">Confirmed and Completed Rides</a></li>
+        </ul>
+    </p>
+    </div>
+</div>
+{% endblock %}

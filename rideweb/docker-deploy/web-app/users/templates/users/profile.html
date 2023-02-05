@@ -1,0 +1,35 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block sidebar %}
+<div class="col-md-4">
+    <div class="content-section">
+    <h3>Menu</h3>
+    <p class='text-muted'>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-light"><a href="{% url 'profile' %}">Personal info</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'CreateRide' %}">Create a ride request</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'search_ride' %}">Search for a ride share</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'OwnerRides' %}">View my rides</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'ConfirmedUser' %}">View confirmed rides</a></li>
+        </ul>
+    </p>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="media-body">
+<article class="media content-section">
+    <div class="media-body">
+    <div class="article-metadata">
+            <h1>My Profile</h1>
+        </div>
+            <p>Username: <strong>{{ user.username }}</strong></p>
+            <p>First Name: {{ user.first_name }} </p>
+            <p>Last Name: {{ user.last_name }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Phone: {{ user.rider.phone }}</p>
+            <a href = '{% url "EditAsUser"%}'>Edit personal info</a>
+        </div>
+            
+    </article>
+{% endblock content%}

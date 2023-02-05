@@ -1,0 +1,71 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content%}
+{% if not existRides %}
+    <div class="media-body">
+        <div>
+            <a href = '{%url "profile"%}'>Go Back</a>
+            </div>
+            <h1>Search for open rides</h1>
+            <div class="article-metadata">
+<form action="/search_ride/" method="post">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <button class="btn btn-outline-info" type="submit"> Search </button>
+</form>
+{% endif%}
+
+
+
+{% if existRides %}
+<div class="media-body">
+    <a href = '{%url "OwnerRides"%}'> Back </a> 
+     {% if available_rides %}
+
+        <h1>Available rides</h1>
+        
+
+        {% for ride in available_rides %}
+
+        <div class="content-section">
+                    <p class="mr-2">Ride No.{{ride.id}} Ride owner: <strong>{{ ride.owner }}</strong></p>
+                
+                    <p>Destination: <strong>{{ ride.destination }}</strong> </p>
+                    <p>Arrival time: {{ ride.arrival_time }}</p>
+                    <p>Remaining seats {{ ride.RemainSeats }}</p>
+                    <p>Vehicle: {{ ride.Vtype }} </p>
+                    <p>Status : {{ ride.status }}</p>
+                
+                <div>
+                    <form action="/join_ride/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="ride_detail_id" value={{ride.id}}>
+                        <input type="hidden" name="size" value={{size}}>
+                        <button class="btn btn-outline-info" type="submit"> Join This Ride </button>
+                    </form>
+                </div>
+</div>
+
+        {% endfor %}
+     {% else  %}
+         <p>No available ride</p>
+     {% endif %}
+{% endif %}
+</body>
+{% endblock %}
+{% block sidebar %}
+<div class="col-md-4">
+    <div class="content-section">
+    <h3>Menu</h3>
+    <p class='text-muted'>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-light"><a href="{% url 'profile' %}">Personal info</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'CreateRide' %}">Create a ride request</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'search_ride' %}">Search for a ride share</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'OwnerRides' %}">View my rides</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'ConfirmedUser' %}">View confirmed rides</a></li>
+        </ul>
+    </p>
+    </div>
+</div>
+{% endblock %}

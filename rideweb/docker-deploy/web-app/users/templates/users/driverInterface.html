@@ -1,0 +1,35 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+        <div class="article-metadata">
+            <p class="mr-2">Driver: <strong>{{ user.username }}</strong></p>
+        </div>
+            <p>First Name: {{ user.first_name }}</p>
+            <p>Last Name: {{ user.last_name }}</p>
+            <p>Phone: {{ user.rider.phone }}</p> 
+            <p>Vehicle type: {{user.driver.Vtype}}</p>
+            <p>Max capacity: {{ user.driver.maxP }}</p>
+            <p>Brand & Model: {{ user.driver.Brand }} {{ user.driver.Model }}</p>
+            <p>Plate No.: {{ user.driver.PlateNum }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Special Info: {{user.driver.Special}}</p>
+            <a href = '{%url "EditAsDriver"%}'>Edit</a>
+        </div>
+    </article>
+{% endblock content%}
+{% block sidebar %}
+<div class="col-md-4">
+    <div class="content-section">
+    <h3>Menu</h3>
+    <p class='text-muted'>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-light"><a href="{% url 'driver' %}">Driver personal info</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'driver_search_ride' %}">Look for open rides</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'ConfirmedDriver' %}">Confirmed and Completed Rides</a></li>
+        </ul>
+    </p>
+    </div>
+</div>
+{% endblock %}
